@@ -25,9 +25,12 @@ const Menu = () => {
     fetchData();
   }, []);
 const add_to_order = (item) => {
-  setOrder ([...order, {name: item.name,price: item.price}])
+  setOrder ([...order, {name: item.name, price: item.price}])
     }
-
+  const dele = (index) => {
+    const updatedOrder = order.filter((order, orderindex) => orderindex !== index )
+    setOrder(updatedOrder)
+  }
   return (
     <div>
       {loading ? (
@@ -43,7 +46,7 @@ const add_to_order = (item) => {
             ))}
           </ul>
           <h1>Carrito:</h1>
-          <Order order={order} del={del}/>
+          <Order order={order} del={del} dele = {dele}/>
         </div>
       )}
     </div>

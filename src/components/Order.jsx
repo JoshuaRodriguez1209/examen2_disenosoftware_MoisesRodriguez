@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Payment from './Payment';
 
-const Order = ({order,del}) => {
+const Order = ({order,del,dele}) => {
   const [total, setTotal] = useState(0);
 
 
@@ -17,9 +17,10 @@ const Order = ({order,del}) => {
   return (
     <div>
       <ul>
-        {order.map((item) => (
-          <li key={item.id}>
+        {order.map((item,index) => (
+          <li key={index}>
             <h3>{item.name} - ${item.price}</h3>
+            <button onClick={() => dele(index)}>Eliminar</button>
           </li>
         ))}
       </ul>
