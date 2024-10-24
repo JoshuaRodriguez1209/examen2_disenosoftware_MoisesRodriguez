@@ -1,15 +1,17 @@
-import { useState } from 'react'
-import './App.css'
-import Menu from './components/Menu'
-
+import { useState } from "react"
+import Menu from "./components/Menu"
 
 function App() {
   return (
     <>
-    <h1>Menu del Restaurante</h1>
-        <Menu />
+      <div className="w-full text-center mb-8">
+        <h1 className="text-4xl font-bold text-white bg-blue-600 py-4 rounded-lg shadow-lg">
+          Menú del Restaurante
+        </h1>
+      </div>
+      <Menu />
     </>
   )
 }
 
-export default App
+export default App;

@@ -1,52 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import Order from './Order';
-import Payment from './Payment';
+import React, { useState, useEffect } from "react";
+import Order from "./Order";
+
 const Menu = () => {
-  const [data, setData] = useState([]); 
-  const [loading, setLoading] = useState(true); 
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
+
   const del = () => {
     setOrder([]);
-  }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://api-menu-9b5g.onrender.com/menu');
+        const response = await fetch("https://api-menu-9b5g.onrender.com/menu");
         const result = await response.json();
         console.log(result);
         setData(result);
         setLoading(false);
       } catch (error) {
-        console.log('Error fetching data', error);
+        console.log("Error fetching data", error);
         setLoading(false);
       }
     };
 
     fetchData();
   }, []);
-const add_to_order = (item) => {
-  setOrder ([...order, {name: item.name, price: item.price}])
+
+  const add_to_order = (item) => {
+    const existingItemIndex = order.findIndex(
+      (orderItem) => orderItem.name === item.name
+    );
+
+    if (existingItemIndex !== -1) {
+      const updatedOrder = [...order];
+      updatedOrder[existingItemIndex].quantity += 1;
+      setOrder(updatedOrder);
+    } else {
+      setOrder([...order, { name: item.name, price: item.price, quantity: 1 }]);
     }
+  };
+
   const dele = (index) => {
-    const updatedOrder = order.filter((order, orderindex) => orderindex !== index )
-    setOrder(updatedOrder)
-  }
+    const updatedOrder = order.filter((_, orderIndex) => orderIndex !== index);
+    setOrder(updatedOrder);
+  };
+
   return (
-    <div>
+    <div className="flex justify-between p-6">
       {loading ? (
-        <p>Loading...</p>
+        <div className="flex justify-center items-center w-full h-screen">
+          <p className="text-center text-gray-700 font-bold text-3xl">
+            Cargando menú...
+          </p>
+        </div>
       ) : (
-        <div>
-          <ul>
+        <div className="flex w-full">
+          <div className="w-8/12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.map((item) => (
-              <li key={item.id}>
-                <h3>{item.name} - ${item.price}</h3>
-                <button onClick= {() => add_to_order(item)}>Agregar al carrito</button>
-              </li>
+              <div
+                key={item.id}
+                className="bg-white p-6 rounded-lg shadow-lg text-center"
+              >
+                <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
+                <p className="text-gray-700 mb-4">${item.price}</p>
+                <button
+                  className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 transition-colors duration-300"
+                  onClick={() => add_to_order(item)}
+                >
+                  Agregar al carrito
+                </button>
+              </div>
             ))}
-          </ul>
-          <h1>Carrito:</h1>
-          <Order order={order} del={del} dele = {dele}/>
+          </div>
+
+          <div className="w-4/12 pl-6">
+            <h1 className="text-2xl font-bold mb-4">Carrito:</h1>
+            <Order order={order} del={del} dele={dele} />
+          </div>
         </div>
       )}
     </div>
@@ -54,4 +85,3 @@ const add_to_order = (item) => {
 };
 
 export default Menu;
-
