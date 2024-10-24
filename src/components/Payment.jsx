@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 
 const Payment = ({ total, delete_cart }) => {
   const [window, setWindow] = useState(false);

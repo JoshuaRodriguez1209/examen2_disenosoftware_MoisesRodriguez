@@ -5,6 +5,7 @@ const Menu = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
+  const [item,setItem] = useState(null);
 
   const del = () => {
     setOrder([]);
@@ -60,7 +61,8 @@ const Menu = () => {
             {data.map((item) => (
               <div
                 key={item.id}
-                className="bg-white p-6 rounded-lg shadow-lg text-center"
+                className="bg-white p-6 rounded-lg shadow-lg text-center hover:bg-gray-200 transition-colors duration-300"
+  onMouseEnter={() => setItem(item)} onMouseLeave={() => setItem(null)}
               >
                 <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
                 <p className="text-gray-700 mb-4">${item.price}</p>
@@ -76,7 +78,7 @@ const Menu = () => {
 
           <div className="w-4/12 pl-6">
             <h1 className="text-2xl font-bold mb-4">Carrito:</h1>
-            <Order order={order} del={del} dele={dele} />
+            <Order order={order} del={del} dele={dele} item = {item} />
           </div>
         </div>
       )}

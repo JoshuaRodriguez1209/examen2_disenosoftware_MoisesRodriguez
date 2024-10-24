@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Payment from "./Payment";
 
-const Order = ({ order, del, dele }) => {
+const Order = ({ order, del, dele, item}) => {
   const [total, setTotal] = useState(0);
 
   const delete_cart = () => {
@@ -31,9 +31,8 @@ const Order = ({ order, del, dele }) => {
     }
     setTotal(total - updatedOrder[index].price)
   }
-
   return (
-    <div>
+    <div>      
       <ul className="space-y-4">
         {order.map((item, index) => (
           <li
@@ -46,15 +45,15 @@ const Order = ({ order, del, dele }) => {
             <div className="flex items-center space-x-2">
               <button
                 className="bg-green-500 text-white py-1 px-3 rounded hover:bg-blue-700 transition-colors duration-300"
-                onClick={() => increaseQuantity(index)}
-              >
-                +
-              </button>
-              <button
-                className="bg-green-500 text-white py-1 px-3 rounded hover:bg-yellow-700 transition-colors duration-300"
                 onClick={() => decreaseQuantity(index)}
               >
                 -
+              </button>
+              <button
+                className="bg-green-500 text-white py-1 px-3 rounded hover:bg-yellow-700 transition-colors duration-300"
+                onClick={() => increaseQuantity(index)}
+              >
+                +
               </button>
               <button
                 className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700 transition-colors duration-300"
@@ -68,7 +67,13 @@ const Order = ({ order, del, dele }) => {
       </ul>
       <h2 className="text-xl font-bold mt-6">Total: ${total}</h2>
       <Payment total={total} delete_cart={delete_cart} />
-    </div>
+      {item ?
+      <div>
+          <p className="pt-10">{item.description}</p>
+      </div>
+    : null
+    }   
+      </div>
   );
 };
 
