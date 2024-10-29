@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Order from "./Order";
+import { getMenu } from "../services/menuApi";
 
 const Menu = () => {
   const [data, setData] = useState([]);
@@ -12,21 +13,15 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://api-menu-9b5g.onrender.com/menu");
-        const result = await response.json();
-        console.log(result);
-        setData(result);
-        setLoading(false);
-      } catch (error) {
-        console.log("Error fetching data", error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+    getMenu()
+    .then((data) => {
+      setData(data)
+      setLoading(false)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  }, [])
 
   const add_to_order = (item) => {
     const existingItemIndex = order.findIndex(
