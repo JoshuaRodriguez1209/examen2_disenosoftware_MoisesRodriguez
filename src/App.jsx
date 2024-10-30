@@ -1,7 +1,7 @@
-import { useState } from "react"
 import Menu from "./components/Menu"
 
 function App() {
+  document.title = "App Restaurante";
   return (
     <>
       <div className="w-full text-center mb-8">
