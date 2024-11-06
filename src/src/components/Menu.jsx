@@ -1,9 +1,8 @@
-// Menu.js
 import React, { useState, useEffect } from "react";
 import Order from "./Order";
 import { getMenu } from "../services/menuApi";
 
-const Menu = ({ update_history }) => {
+const Menu = ({update_history}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
@@ -43,7 +42,7 @@ const Menu = ({ update_history }) => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full justify-between items-start">
+    <div className="p-6 flex flex-col lg:flex-row w-full justify-between items-start">
       {loading ? (
         <div className="flex justify-center items-center w-full h-screen">
           <p className="text-center text-gray-700 font-bold text-3xl">
@@ -52,7 +51,8 @@ const Menu = ({ update_history }) => {
         </div>
       ) : (
         <div className="flex flex-col lg:flex-row w-full">
-          <div className="w-full lg:w-10/12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Menú: ocupa el 75% del ancho */}
+          <div className="w-full lg:w-8/12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.map((item) => (
               <div
                 key={item.id}
@@ -63,7 +63,7 @@ const Menu = ({ update_history }) => {
                 <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
                 <p className="text-gray-700 mb-4">${item.price}</p>
                 <button
-                  onClick={() => { add_to_order(item) }}
+                  onClick={() => {add_to_order(item)}}
                   className="font-sans flex justify-center gap-2 items-center mx-auto  text-base text-wrap text-gray-50 bg-blue-500 backdrop-blur-md lg:font-semibold isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-green-500 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-0 px-4 py-2 overflow-hidden  rounded-full group"
                 >
                   Agregar al carrito
@@ -81,8 +81,10 @@ const Menu = ({ update_history }) => {
               </div>
             ))}
           </div>
+
+          {/* Carrito: ocupa el 25% del ancho */}
           <div className="w-full lg:w-5/12 mt-6 lg:mt-0 lg:pl-6">
-            <Order order={order} del={del} dele={dele} item={item} update_history={update_history} />
+            <Order order={order} del={del} dele={dele} item={item} update_history = {update_history}/>
           </div>
         </div>
       )}
