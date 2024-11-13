@@ -2,6 +2,7 @@ import {
   collection,
   addDoc,
   getDoc,
+  setDoc,
   doc,
   getDocs,
   updateDoc,
@@ -23,7 +24,7 @@ const getOrders = async (isAdmin, clientId = null) => {
   } else {
     ordersQuery = query(
       ordersRef,
-      where("clientId", "==", clientId), 
+      where("user", "==",clientId),
       orderBy("date", "asc")
     );
   }
@@ -36,7 +37,7 @@ const getOrders = async (isAdmin, clientId = null) => {
 };
 
 
-const saveOrder = async (orderItems, total) => {
+const saveOrder = async (orderItems, total, user) => {
   try {
     const orderData = {
       date: Timestamp.now(),
@@ -47,6 +48,7 @@ const saveOrder = async (orderItems, total) => {
       })),
       payment: "cash",
       total: total,
+      user : user
     };
 
     const docRef = await addDoc(collection(db, "Orders"), orderData);
@@ -55,4 +57,5 @@ const saveOrder = async (orderItems, total) => {
     console.error("Error al registrar el pedido:", error);
   }
 };
+
 export {getOrders, saveOrder}

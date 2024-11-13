@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Order from "./Order";
 import { getMenu } from "../services/menuApi";
 
-const Menu = ({ update_history }) => {
+const Menu = ({ update_history, user }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
@@ -64,7 +64,7 @@ const Menu = ({ update_history }) => {
                 <p className="text-gray-700 mb-4">${item.price}</p>
                 <button
                   onClick={() => { add_to_order(item) }}
-                  className="font-sans flex justify-center gap-2 items-center mx-auto  text-base text-wrap text-gray-50 bg-blue-500 backdrop-blur-md lg:font-semibold isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-green-500 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-0 px-4 py-2 overflow-hidden  rounded-full group"
+                  className="font-sans flex justify-center gap-2 items-center mx-auto  text-base text-wrap text-gray-500 bg-white-300 backdrop-blur-md lg:font-semibold isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-green-500 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-0 px-4 py-2 overflow-hidden  rounded-full group"
                 >
                   Agregar al carrito
                   <svg
@@ -82,7 +82,7 @@ const Menu = ({ update_history }) => {
             ))}
           </div>
           <div className="w-full lg:w-5/12 mt-6 lg:mt-0 lg:pl-6">
-            <Order order={order} del={del} dele={dele} item={item} update_history={update_history} />
+            <Order order={order} del={del} dele={dele} item={item} update_history={update_history} user = {user} />
           </div>
         </div>
       )}

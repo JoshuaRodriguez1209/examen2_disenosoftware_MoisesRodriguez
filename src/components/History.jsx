@@ -20,13 +20,6 @@ const History = ({ isAdmin,historyUpdate,clientId}) => {
     fetchHistory();
   }, [isAdmin,historyUpdate,clientId]);
 
-  useEffect(() => {
-    if (clientId !== null) {
-      console.log("clientId actualizado:", clientId);
-    }
-  }, [clientId]); // Este efecto se ejecutará cuando clientId cambie
-
-
   return (
     <div className="flex flex-col items-center justify-start p-4 w-full max-w-4xl">
       <h2 className="text-xl font-bold mb-4">Historial de Órdenes</h2>
@@ -35,9 +28,9 @@ const History = ({ isAdmin,historyUpdate,clientId}) => {
           <div className="mt-6 w-full max-w-3xl overflow-y-auto max-h-[calc(100vh-150px)]">
             <ul className="space-y-6">
               {history.map((order, index) => (
-                <li key={index} className="p-4 rounded-lg shadow-md bg-gray-50 border-l-4 border-b-4 border-blue-500">
+                <li key={index} className="p-4 rounded-lg shadow-md bg-gray-50 border-l-4 border-b-4 border-green-500">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-bold text-blue-700">
+                    <h3 className="text-lg font-bold text-green-700">
                       {isAdmin ?  `Orden : #${order.id}`
                       : `Orden #${index + 1}` 
                       }

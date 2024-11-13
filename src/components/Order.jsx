@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Payment from "./Payment";
 
-const Order = ({ order, del, dele, item, update_history}) => {
+const Order = ({ order, del, dele, item, update_history,user}) => {
   const [total, setTotal] = useState(0);
   const delete_cart = () => {
     del();
@@ -89,7 +89,7 @@ const Order = ({ order, del, dele, item, update_history}) => {
         ))}
       </ul>
       <h2 className="text-xl font-bold mt-6">Total: ${total}</h2>
-      <Payment total={total} delete_cart={delete_cart} order = {order} update_history= {update_history}/>
+      <Payment total={total} delete_cart={delete_cart} order = {order} update_history= {update_history} user = {user}/>
       {item ? (
         <div>
           <p className="pt-10">{item.description}</p>

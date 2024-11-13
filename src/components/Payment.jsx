@@ -1,13 +1,13 @@
 import React, { useState} from "react";
 import { saveOrder } from "../services/orderService";
-const Payment = ({ total, delete_cart, order, update_history}) => {
+const Payment = ({ total, delete_cart, order, update_history,user}) => {
   const [window, setWindow] = useState(false);
 
   const pay = () => {
     {
       if (total > 0){
         openWindow()
-        saveOrder(order, total)
+        saveOrder(order, total,user)
         update_history()
       }
     }
